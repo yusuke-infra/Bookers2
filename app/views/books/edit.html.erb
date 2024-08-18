@@ -1,2 +1,22 @@
-<h1>Books#edit</h1>
-<p>Find me in app/views/books/edit.html.erb</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+            <h1>Editing Book</h1>
+            <%= form_with model: @book, method: :PATCH do |f| %>
+                <div class="form-group">
+                    <label>Title</label><br />
+                    <%= f.text_field :title, autofocus: true, placeholder:"Title" %>
+                </div>
+                
+                <div class="form-group">
+                    <label>Opinion</label><br />
+                    <%= f.text_area :body, placeholder:"Opinion" %>
+                </div>
+                
+                <div class="actions">
+                    <%= f.submit "Update Book", class: 'btn btn-success' %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
