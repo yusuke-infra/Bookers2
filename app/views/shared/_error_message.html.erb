@@ -1,8 +1,8 @@
 <div>
-    <% if flash[:alert] %>
+    <% if flash[:error] %>
         <div>
             <h2>
-                <%= flash[:alert] %>
+                <%= flash[:error] %>
             </h2> 
             <ul>
                 <% flash[:error_messages].each do |message| %>

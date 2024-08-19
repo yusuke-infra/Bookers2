@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :is_logged_in?
   
   def show
     @user = User.find(params[:id])
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "You have updated user succesfully."
+      flash[:notice] = "You have updated user successfully."
       redirect_to user_path(@user.id)
     else
       render :edit
@@ -33,8 +34,16 @@ class UsersController < ApplicationController
     def is_matching_login_user
       user = User.find(params[:id])
       # ログインユーザーでないなら、showページに飛ばす
-      unless user.id == current_user.id
+      if !user_signed_in?
+        redirect_to new_user_session_path
+      elsif user.id != current_user.id
         redirect_to user_path(current_user.id)
+      end
+    end
+    
+    def is_logged_in?
+      unless user_signed_in?
+        redirect_to new_user_session_path
       end
     end
 end

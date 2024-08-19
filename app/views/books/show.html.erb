@@ -1,7 +1,7 @@
 <div class="container px-5 px-sm-0">
     <div class="row">
         
-        <%= render 'share/user_form', user: @user %>
+        <%= render 'shared/user_form', user: @book.user %>
         
         <div class="col-md-8 offset-md-1">
             <h1>Book detail</h1>
@@ -10,22 +10,22 @@
                     <tr>
                         <td>
                             <%= image_tag @book.user.get_profile_image(75, 75) %><br/>
-                            <%= link_to "#{@user.name}", user_path(@user.id) %>
+                            <%= link_to "#{@book.user.name}", user_path(@book.user.id) %>
                         </td>
                         <td>
-                            <%= @book.title %>
+                            <%= link_to "#{@book.title}", book_path(@book.id) %>
                         </td>
                         <td>
                             <%= @book.body %>
                         </td>
-                        <% if @user == current_user %>
+                        <% if @book.user.id == current_user.id %>
                             <td>
-                                <%= link_to "Edit", edit_book_path(@book.id), class: 'btn btn-success' %>
+                                <%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %>
                             </td>
                             <td>
                                 <%= link_to "Destroy", book_path(@book.id), 
                                 method: :delete, "data-confirm"=> "本当に削除しますか？",
-                                class: 'btn btn-danger' %>
+                                class: 'btn btn-sm btn-danger' %>
                             </td>
                         <% end %>
                     </tr>
