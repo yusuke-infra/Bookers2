@@ -33,7 +33,6 @@ class UsersController < ApplicationController
     
     def is_matching_login_user
       user = User.find(params[:id])
-      # ログインユーザーでないなら、showページに飛ばす
       if !user_signed_in?
         redirect_to new_user_session_path
       elsif user.id != current_user.id
