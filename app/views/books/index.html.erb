@@ -34,6 +34,11 @@
                                     ♡<%= book.favorites.count %>
                                 <% end %>
                             </td>
+                            <td>
+                                <%= link_to book_favorite_path(book), method: :delete do %>
+                                    ♡<%= book.favorites.count %>
+                                <% end %>
+                            </td>
                         </tr>
                     <% end %>
                 </tbody>
