@@ -21,6 +21,9 @@
                         <td>
                             <%= render 'shared/favorite', book: @book %>
                         </td>
+                        <td>
+                            <p>コメント数: <%= @book.book_comments.count %></p>
+                        </td>
                         <% if @book.user.id == current_user.id %>
                             <td>
                                 <%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %>
@@ -34,6 +37,33 @@
                     </tr>
                 </tbody>
             </table>
+            
+            <% @book.book_comments.each do |book_comment| %>
+                <div class="row pt-2 pb-2">
+                    <div class="col-md-1">
+                        <%= image_tag book_comment.user.get_profile_image(50, 50) %><br/>
+                        <%= link_to "#{book_comment.user.name}", user_path(book_comment.user.id) %>
+                    </div>
+                    <div class="col-md-5">
+                        <p class="text-wrap text-break" style="width: mw-75;"><%= book_comment.comment %></p>
+                    </div>
+                    <div class="col-md-2">
+                        <% if book_comment.user == current_user %>
+                            <%= link_to "Destroy", book_book_comment_path(@book, book_comment), 
+                                method: :delete, "data-confirm"=> "本当に削除しますか？",
+                                class: 'btn btn-sm btn-danger' %>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+            
+            <%= render 'shared/error_message' %>
+            
+            <%= form_with model: [@book, @book_comment] do |f| %>
+                <%= f.text_area :comment, class:"form-control", rows: '5' %><br />
+                <%= f.submit "送信" %>
+            <% end %>
+
         </div>
     </div>
 </div>
