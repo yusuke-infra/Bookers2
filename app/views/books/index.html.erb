@@ -30,14 +30,7 @@
                                 <%= book.body %>
                             </td>
                             <td>
-                                <%= link_to book_favorite_path(book), method: :post do %>
-                                    ♡<%= book.favorites.count %>
-                                <% end %>
-                            </td>
-                            <td>
-                                <%= link_to book_favorite_path(book), method: :delete do %>
-                                    ♡<%= book.favorites.count %>
-                                <% end %>
+                                <%= render 'shared/favorite', book: book %>
                             </td>
                         </tr>
                     <% end %>
